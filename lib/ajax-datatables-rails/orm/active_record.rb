@@ -98,8 +98,12 @@ module AjaxDatatablesRails
 
       def sort_column(item)
         model, column = view_columns[item[:column].to_i].split('.')
-        table = get_table(model)
-        [table.name, column].join('.')
+        if column.present?
+          table = get_table(model)
+          [table.name, column].join('.')
+        else
+          model
+        end
       end
 
       def sort_direction(item)
